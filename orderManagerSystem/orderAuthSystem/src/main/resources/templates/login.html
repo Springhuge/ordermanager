@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>订单权限系统</title>
+    <link th:href="@{assets/css/lib/font-awesome.min.css}" rel="stylesheet">
+    <link th:href="@{assets/css/lib/themify-icons.css}" rel="stylesheet">
+    <link th:href="@{assets/css/lib/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{assets/css/lib/simdahs.css}" rel="stylesheet">
+    <link th:href="@{assets/css/style.css}" rel="stylesheet">
+</head>
+<body class="bg-primary">
+    <div class="unix-login">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-lg-offset-3">
+                    <div class="login-content">
+                        <div class="login-logo">
+                            <a href="/"><span>订单权限系统</span></a>
+                        </div>
+                        <div class="login-form">
+                            <h4>用户登录</h4>
+                            <form>
+                                <div class="form-group">
+                                    <label>用户名</label>
+                                    <input type="text" id="username" class="form-control" placeholder="用户名/邮箱">
+                                </div>
+                                <div class="form-group">
+                                    <label>密码</label>
+                                    <input type="password" id="password" class="form-control" placeholder="密码">
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox"> 记住密码
+                                    </label>
+                                </div>
+                                <button type="button" onclick="login()" id="f_login" class="btn btn-primary btn-flat m-b-30 m-t-30">登录</button>
+                                <div class="register-link m-t-15 text-center">
+                                    <p>没有账号 ? <a href="#"> 注册</a></p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" th:src="@{assets/jquery/axios.js}"></script>
+<script type="text/javascript" th:src="@{assets/jquery/jquery-2.1.1.min.js}"></script>
+<script type="text/javascript" th:src="@{assets/jquery/layer/layer.js}"></script>
+<script type="text/javascript" th:src="@{js/index.js}"></script>
+</html>

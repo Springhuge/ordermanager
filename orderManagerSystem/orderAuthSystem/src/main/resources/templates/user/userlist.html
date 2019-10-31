@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>订单权限系统</title>
+    <link th:href="@{../assets/css/lib/themify-icons.css}" rel="stylesheet">
+    <link th:href="@{../assets/css/lib/owl.carousel.min.css}" rel="stylesheet" >
+    <link th:href="@{../assets/css/lib/owl.theme.default.min.css}" rel="stylesheet" >
+    <link th:href="@{../assets/css/lib/weather-icons.css}" rel="stylesheet" >
+    <link th:href="@{../assets/css/lib/mmc-chat.css}" rel="stylesheet" >
+    <link th:href="@{../assets/css/lib/sidebar.css}" rel="stylesheet">
+    <link th:href="@{../assets/css/lib/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{../assets/css/lib/simdahs.css}" rel="stylesheet">
+    <link th:href="@{../assets/css/style.css}" rel="stylesheet">
+    <link th:href="@{../js/pagination/pagination.css}" rel="stylesheet">
+</head>
+<body>
+<div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
+    <div class="nano">
+        <div class="nano-content">
+            <ul>
+                <li class="label">Main</li>
+                <li class=""><a href="http://localhost:8080/auth/index"><i class="ti-home"></i> 主页 </a></li>
+                <li class="active"><a  href="http://localhost:8080/user/userlist"><i class="ti-user"></i> 用户管理</a></li>
+                <li  class=""><a href="http://localhost:8080/role/rolelist"><i class="ti-settings"></i>角色管理</a></li>
+                <li class=""><a href="http://localhost:8080/permission/permissionlist"><i class="ti-ruler"></i>许可管理</a></li>
+            </ul>
+        </div>
+    </div>
+</div><!-- /# sidebar -->
+
+
+
+<!--导航栏-->
+<div class="header">
+    <div class="pull-left">
+        <div class="logo" id="sideLogo">
+            <a href="index.html">
+                <img class="full-logo" th:src="@{../assets/images/logo-big.png}" alt="Auth">
+                <img class="small-logo" th:src="@{../assets/images/logo-small.png}" alt="Auth">
+            </a>
+        </div>
+    </div>
+
+    <div class="pull-right p-r-15">
+        <ul>
+            <li class="header-icon dib"><img class="avatar-img" th:src="@{assets/images/avatar/1.jpg}" alt="">
+                <span class="user-avatar" th:text="${session.user.username}"/>
+                <i class="ti-angle-down f-s-10"></i>
+                <div class="drop-down dropdown-profile">
+                    <div class="dropdown-content-body">
+                        <ul>
+                            <li><a href="#" onclick="logout()"><i class="ti-power-off"></i> <span>注销</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+
+<div class="content-wrap">
+    <div class="main">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-8 p-0">
+                    <div class="page-header">
+                        <div class="page-title">
+                            <h1>Dashboard</h1>
+                        </div>
+                    </div>
+                </div><!-- /# column -->
+                <div class="col-lg-4 p-0">
+                    <div class="page-header">
+                        <div class="page-title">
+                            <ol class="breadcrumb text-right">
+                                <li><a href="#">Dashboard</a></li>
+                                <li class="active">Home</li>
+                            </ol>
+                        </div>
+                        <div>
+
+                        </div>
+                    </div>
+
+                </div><!-- /# column -->
+                <div class="input-group input-group-rounded">
+                    <input type="text" id="queryText" placeholder="Search Round" name="Search" class="form-control">
+                    <span class="input-group-btn"><button class="btn btn-primary btn-group-right" onclick="fuzzyQuery()" type="button"><i class="ti-search"></i></button></span>
+                </div>
+                <div class="card alert">
+                    <div class="card-header">
+                        <h4>用户列表 </h4>
+                        <div class="card-header-right-icon">
+                            <ul>
+                                <li><button type="button" onclick="deleteUsers()" class="btn btn-danger m-b-10 m-l-5"><i class="ti-minus">删除</i></button></li>
+                                <li><button type="button" onclick="updateUser()" class="btn btn-primary btn-flat m-b-10 m-l-5"><i class="ti-pencil">修改</i></button></li>
+                                <li><button type="button" onclick="addUser()" class="btn btn-info m-b-10 m-l-5"><i class="ti-plus">增加</i></button></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-responsive" id="t-userlist">
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox" id="t_checkbox" />全选/全不选</th>
+                                    <th>#</th>
+                                    <th>姓名</th>
+                                    <th>性别</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="6" style="text-align:center">
+                                    <div id="Pagination" class="pagination">
+                                        <!-- 这里显示分页 -->
+                                    </div>
+                                </td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div align="center">
+                Copyright &copy; 2019.虎哥的系统
+            </div>
+        </div><!-- /# container-fluid -->
+    </div><!-- /# main -->
+</div><!-- /# content wrap -->
+<!--添加用户模态框-->
+<div class="modal fade" style="width:600px;  margin:auto;" id="addModel" tabindex="-1" role="dialog" aria-labelledby="addModelLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">添加用户</h4>
+            </div>
+            <div class="modal-body">
+                <form id="addForm">
+                    <div class="form-group">
+                        <label for="addUsername">用户名</label>
+                        <input type="text" class="form-control" id="addUsername" placeholder="账号/邮箱">
+                    </div>
+                    <div class="form-group">
+                        <label for="addPassword">密码</label>
+                        <input type="password" class="form-control" id="addPassword" placeholder="密码">
+                    </div>
+                    <div class="form-group">
+                        <label for="addSex">性别</label>
+                        <div id="addSex" class="form-control">
+                            <input name="sex" type="radio" value="m" />男
+                            <input name="sex" type="radio" value="w"/>女
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" id="addUser" class="btn btn-primary">添加</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--修改用户模态框-->
+<div class="modal fade" style="width:600px;  margin:auto;" id="updateModel" tabindex="-1" role="dialog" aria-labelledby="updateModelLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="updateModelLabel">修改用户</h4>
+            </div>
+            <div class="modal-body">
+                <form id="updateForm">
+                    <div class="form-group">
+                        <label for="updateUsername">用户名</label>
+                        <input type="text" class="form-control" id="updateUsername" placeholder="账号/邮箱">
+                    </div>
+                    <div class="form-group">
+                        <label for="updatePassword">密码</label>
+                        <input type="password" class="form-control" id="updatePassword" placeholder="密码">
+                    </div>
+                    <div class="form-group">
+                        <label for="updateSex">性别</label>
+                        <div id="updateSex" class="form-control">
+                            <input name="updateSex" type="radio" value="m"/>男
+                            <input name="updateSex" type="radio" value="w"/>女
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" id="updateUser" class="btn btn-primary">修改</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{../assets/js/lib/jquery-2.1.1.min.js}"></script><!-- jquery vendor -->
+<script th:src="@{../assets/js/lib/jquery.nanoscroller.min.js}"></script><!-- nano scroller -->
+<script th:src="@{../assets/js/lib/bootstrap.min.js}"></script><!-- bootstrap -->
+<script th:src="@{../assets/js/lib/mmc-common.js}"></script>
+<script th:src="@{../assets/js/lib/mmc-chat.js}"></script>
+<!--  Chart js -->
+<script th:src="@{../assets/js/lib/chart-js/Chart.bundle.js}"></script>
+<script th:src="@{../assets/js/lib/chart-js/chartjs-init.js}"></script>
+<!-- // Chart js -->
+
+
+<script th:src="@{../assets/js/lib/sparklinechart/jquery.sparkline.min.js}"></script><!-- scripit init-->
+<script th:src="@{../assets/js/lib/sparklinechart/sparkline.init.js}"></script><!-- scripit init-->
+
+<!--  Datamap -->
+<script th:src="@{../assets/js/lib/datamap/d3.min.js}"></script>
+<script th:src="@{../assets/js/lib/datamap/topojson.js}"></script>
+<script th:src="@{../assets/js/lib/datamap/datamaps.world.min.js}"></script>
+<script th:src="@{../assets/js/lib/datamap/datamap-init.js}"></script>
+<!-- // Datamap -->-->
+<script th:src="@{../assets/js/lib/weather/jquery.simpleWeather.min.js}"></script>
+<script th:src="@{../assets/js/lib/weather/weather-init.js}"></script>
+<script th:src="@{../assets/js/lib/owl-carousel/owl.carousel.min.js}"></script>
+<script th:src="@{../assets/js/lib/owl-carousel/owl.carousel-init.js}"></script>
+<!--<script th:src="@{../assets/js/scripts.js}"></script>-->
+<script type="text/javascript" th:src="@{../assets/jquery/axios.js}"></script>
+<script type="text/javascript" th:src="@{../assets/jquery/layer/layer.js}"></script>
+<script type="text/javascript" th:src="@{../js/user.js}"></script>
+<script type="text/javascript" th:src="@{../js/index.js}"></script>
+<script type="text/javascript" th:src="@{../js/pagination/jquery.pagination.js}"></script>
+</body>
+</html>

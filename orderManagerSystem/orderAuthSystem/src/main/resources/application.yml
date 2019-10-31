@@ -1,0 +1,38 @@
+server:
+  port: 8080
+eureka:
+  instance:
+    prefer-ip-address: true #是否显示主机的ip
+  client:
+    service-url:
+      defaultZone: http://localhost:7000/eureka/  #指定eureka服务端端口
+spring:
+  application:
+    name: orderAuthSystem
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource #当前数据源操作类型
+    driver-class-name: org.gjt.mm.mysql.Driver
+    url: jdbc:mysql://localhost:3306/ordermanager
+    username: root
+    password: root
+    dbcp2:
+      min-idle: 5 #数据库连接池的最小维持连接数
+      initial-size: 5 #初始化连接池
+      max-total: 5 #最大连接数
+      max-wait-millis: 200 #等待连接获取的最大超时时间
+  thymeleaf:
+    mode: HTML
+  redis:
+    host: 127.0.0.1
+    port: 6379
+
+
+#sql日志
+#logging:
+#  level:
+#    com.jihu.mapper: debug
+
+#mybatisplus sql 日志
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

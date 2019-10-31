@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>订单权限系统</title>
+    <link th:href="@{../assets/css/lib/themify-icons.css}" rel="stylesheet">
+    <link th:href="@{../assets/css/lib/owl.carousel.min.css}" rel="stylesheet" >
+    <link th:href="@{../assets/css/lib/owl.theme.default.min.css}" rel="stylesheet" >
+    <link th:href="@{../assets/css/lib/weather-icons.css}" rel="stylesheet" >
+    <link th:href="@{../assets/css/lib/mmc-chat.css}" rel="stylesheet" >
+    <link th:href="@{../assets/css/lib/sidebar.css}" rel="stylesheet">
+    <link th:href="@{../assets/css/lib/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{../assets/css/lib/simdahs.css}" rel="stylesheet">
+    <link th:href="@{../assets/css/style.css}" rel="stylesheet">
+</head>
+<body>
+<div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
+    <div class="nano">
+        <div class="nano-content">
+            <ul>
+                <li class="label">Main</li>
+                <li class="active"><a href="http://localhost:8080/auth/index"><i class="ti-home"></i> 主页 </a></li>
+                <li class=""><a href="http://localhost:8080/user/userlist"><i class="ti-user"></i> 用户管理</a></li>
+                <li  class=""><a href="http://localhost:8080/role/rolelist"><i class="ti-settings"></i>角色管理</a></li>
+                <li class=""><a href="http://localhost:8080/permission/permissionlist"><i class="ti-ruler"></i>许可管理</a></li>
+            </ul>
+        </div>
+    </div>
+</div><!-- /# sidebar -->
+
+
+
+<!--导航栏-->
+<div class="header">
+    <div class="pull-left">
+        <div class="logo" id="sideLogo">
+            <a href="index.html">
+                <img class="full-logo" th:src="@{../assets/images/logo-big.png}" alt="Auth">
+                <img class="small-logo" th:src="@{../assets/images/logo-small.png}" alt="Auth">
+            </a>
+        </div>
+    </div>
+
+    <div class="pull-right p-r-15">
+        <ul>
+            <li class="header-icon dib"><img class="avatar-img" th:src="@{assets/images/avatar/1.jpg}" alt="">
+                <span class="user-avatar" th:text="${session.user.username}"/>
+                <i class="ti-angle-down f-s-10"></i>
+                <div class="drop-down dropdown-profile">
+                    <div class="dropdown-content-body">
+                        <ul>
+                            <li><a href="#" onclick="logout()"><i class="ti-power-off"></i> <span>注销</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+
+<div class="content-wrap">
+    <div class="main">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-8 p-0">
+                    <div class="page-header">
+                        <div class="page-title">
+                            <h1>Dashboard</h1>
+                        </div>
+                    </div>
+                </div><!-- /# column -->
+                <div class="col-lg-4 p-0">
+                    <div class="page-header">
+                        <div class="page-title">
+                            <ol class="breadcrumb text-right">
+                                <li><a href="#">Dashboard</a></li>
+                                <li class="active">Home</li>
+                            </ol>
+                        </div>
+                        <div>
+
+                        </div>
+                    </div>
+
+                </div><!-- /# column -->
+                <div align="center">
+                    <img th:src="@{../image/index.jpg}" height="600px" width="1000px">
+                </div ><!-- /# row -->
+
+                </div>
+                <div align="center">
+                    Copyright &copy; 2019.虎哥的系统
+                </div>
+        </div><!-- /# container-fluid -->
+    </div><!-- /# main -->
+</div><!-- /# content wrap -->
+
+
+<script th:src="@{../assets/js/lib/jquery-2.1.1.min.js}"></script><!-- jquery vendor -->
+<script th:src="@{../assets/js/lib/jquery.nanoscroller.min.js}"></script><!-- nano scroller -->
+<script th:src="@{../assets/js/lib/sidebar.js}"></script><!-- sidebar -->
+<script th:src="@{../assets/js/lib/bootstrap.min.js}"></script><!-- bootstrap -->
+<script th:src="@{../assets/js/lib/mmc-common.js}"></script>
+<script th:src="@{../assets/js/lib/mmc-chat.js}"></script>
+<!--  Chart js -->
+<script th:src="@{../assets/js/lib/chart-js/Chart.bundle.js}"></script>
+<script th:src="@{../assets/js/lib/chart-js/chartjs-init.js}"></script>
+<!-- // Chart js -->
+
+
+<script th:src="@{../assets/js/lib/sparklinechart/jquery.sparkline.min.js}"></script><!-- scripit init-->
+<script th:src="@{../assets/js/lib/sparklinechart/sparkline.init.js}"></script><!-- scripit init-->
+
+<!--  Datamap -->
+<script th:src="@{../assets/js/lib/datamap/d3.min.js}"></script>
+<script th:src="@{../assets/js/lib/datamap/topojson.js}"></script>
+<script th:src="@{../assets/js/lib/datamap/datamaps.world.min.js}"></script>
+<script th:src="@{../assets/js/lib/datamap/datamap-init.js}"></script>
+<!-- // Datamap -->-->
+<script th:src="@{../assets/js/lib/weather/jquery.simpleWeather.min.js}"></script>
+<script th:src="@{../assets/js/lib/weather/weather-init.js}"></script>
+<script th:src="@{../assets/js/lib/owl-carousel/owl.carousel.min.js}"></script>
+<script th:src="@{../assets/js/lib/owl-carousel/owl.carousel-init.js}"></script>
+<script th:src="@{../assets/js/scripts.js}"></script>
+<script type="text/javascript" th:src="@{../assets/jquery/axios.js}"></script>
+<script type="text/javascript" th:src="@{../assets/jquery/layer/layer.js}"></script>
+<script type="text/javascript" th:src="@{../js/user.js}"></script>
+</body>
+</html>
